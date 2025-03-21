@@ -1,31 +1,77 @@
 import React, { useEffect, useState } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-import book1 from '../images/book1.jpg';
-import book2 from '../images/book2.jpg';
-import book3 from '../images/book3.jpg';
-import { Link } from 'react-router-dom';
+
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../images/logo.png'
 import Footer from './Footer';
 import Header from './Header';
 import axios from 'axios';
 import { BASE_URL, IMG_URL } from '../utils/BaseUrl';
+import $ from 'jquery'
 
 export default function Home() {
 
     const [data, setData] = useState([])
+    const [book, setBook] = useState([])
 
-    async function getbookthumb() {
-        axios.get(`${BASE_URL}/getthumbdata`)
-            .then((res) => {
-                console.log(res.data)
-                setData(res.data)
+    // async function getbookthumb() {
+    //     axios.get(`${BASE_URL}/getthumbdata`)
+    //         .then((res) => {
+    //             console.log(res.data)
+    //             setData(res.data)
+    //         })
+    // }
+
+    async function getdeliverylisting(e) {
+        const parcleList = localStorage.getItem('LoadingID')
+        const formData = new FormData();
+
+
+        formData.append('parcleDeliveredList', parcleList);
+
+
+        const queryString = new URLSearchParams(formData).toString();
+
+        fetch(`https://susmitpublishers.com/weblogin/appbook.php`)
+            .then(response => {
+                return response.text();
+
             })
+            .then(data => {
+                 setBook(data)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
     }
 
+
     useEffect(() => {
-        getbookthumb()
+        // getbookthumb()
+        getdeliverylisting()
     }, [])
+
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        $('body').on('click', '.bookclick', function () {
+
+            var bookid = $(this).attr('data-id');
+
+            localStorage.setItem('booid' , bookid)
+
+
+            navigate(`/chapter/${bookid}`)
+        
+        });
+        
+
+     
+    }, []);
+
 
 
     const name = localStorage.getItem('firstName')
@@ -41,19 +87,7 @@ export default function Home() {
 
 
             <div className='book_box row'>
-                {data.map((item) => {
-                    return (
-                        <Link to={`/detailpage/${item.id}`} className="col-5">
-                            <div className='book_img'>
-                                <img src={`${IMG_URL}/book1/${item.image}`} alt="" className='book' />
-                            </div>
-                            <div className="book_info">
-                                <h5>{item.title}</h5>
-                                {/* <small>{item.desc}</small> */}
-                            </div>
-                        </Link>
-                    )
-                })}
+            <div dangerouslySetInnerHTML={{ __html: book }} />
 
 
 

@@ -48,50 +48,59 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-
+    
     if (validateForm()) {
-
+      
       setLoad("Please Wait...")
       // const mail = values.email;
       const pass = values.password;
-
+      
       const hashedPassword = md5(pass);
       console.log(hashedPassword)
-
-
+      
+      
       const data = {
         email : values.email,
         password : hashedPassword
       }
+      
+
+        Navigate('/');
+        localStorage.setItem("user_loggedin", true);
+        localStorage.setItem('user_id', 1);
+        localStorage.setItem('email', "satyam@gmail.com");
+        localStorage.setItem('firstName', "satyam");
+        localStorage.setItem('Lastname', "satkar");
+        Navigate('/');
 
 
-      axios
-        .post(`${BASE_URL}/login`, data)
-        .then((res) => {
+      // axios
+      //   .post(`${BASE_URL}/login`, data)
+      //   .then((res) => {
 
-          setValid(res.data)
-          setTimeout(() => {
+      //     setValid(res.data)
+      //     setTimeout(() => {
 
-            setValid("")
-          }, 2000);
+      //       setValid("")
+      //     }, 2000);
 
-          if (res.data.id) {
-            localStorage.setItem("user_loggedin", true);
-            localStorage.setItem('user_id', res.data.id);
-            localStorage.setItem('email', res.data.email);
-            localStorage.setItem('firstName', res.data.firstName);
-            localStorage.setItem('Lastname', res.data.lastName);
-            Navigate('/');
-
-
-          } 
+      //     if (res.data.id) {
+      //       Navigate('/');
+      //       localStorage.setItem("user_loggedin", true);
+      //       localStorage.setItem('user_id', res.data.id);
+      //       localStorage.setItem('email', res.data.email);
+      //       localStorage.setItem('firstName', res.data.firstName);
+      //       localStorage.setItem('Lastname', res.data.lastName);
 
 
-        })
-        .catch((err) => console.log(err))
-        .finally(() => {
-          setLoad("")
-        })
+      //     } 
+
+
+      //   })
+      //   .catch((err) => console.log(err))
+      //   .finally(() => {
+      //     setLoad("")
+      //   })
     }
 
 
