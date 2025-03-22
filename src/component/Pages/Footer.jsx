@@ -6,7 +6,7 @@ const Footer = () => {
       <Link to="/">
         <div className="footer_box">
           <i class="bi bi-house-fill"></i>
-          <p>home</p>
+          <p>HOME</p>
         </div>
       </Link>
       {/* <Link to="/chapter">
@@ -26,7 +26,7 @@ const Footer = () => {
       <Link to="/profile">
         <div className="footer_box">
           <i class="bi bi-person-circle"></i>
-          <p>profile</p>
+          <p>PROFILE</p>
         </div>
       </Link>
     </div>

@@ -86,15 +86,9 @@ export default function Home() {
             </div>
 
 
-            <div className='book_box row'>
-            <div dangerouslySetInnerHTML={{ __html: book }} />
-
-
-
+            <div className='book_box row' id="booklistbk">
+                <div dangerouslySetInnerHTML={{ __html: book }} />
             </div>
-
-
-
 
             <Footer />
         </div>

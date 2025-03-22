@@ -81,11 +81,9 @@ const App = () => {
         </div> */}
 
 
-        <div className="about-book py-3">
+        <div className="about-book">
           <h2 style={{fontWeight :"900"}}>{data.title}</h2>
-           <p dangerouslySetInnerHTML={{ __html: data.desc }}>
-      
-          </p>
+           <div dangerouslySetInnerHTML={{ __html: data.desc }}></div>
           <div dangerouslySetInnerHTML={{ __html: data }} />
         </div>
 
