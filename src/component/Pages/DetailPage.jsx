@@ -7,7 +7,8 @@ import book from '../images/book.jpg';
 import axios from 'axios';
 import { BASE_URL, IMG_URL } from '../utils/BaseUrl';
 import $ from 'jquery'
-
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const App = () => {
   const [data, setData] = useState([])
   const [chapter, setChapter] = useState([])
@@ -43,6 +44,7 @@ const App = () => {
 
   const navigate = useNavigate()
 
+  const book_id = localStorage.getItem('booid')
 
     useEffect(() => {
       $('body').on('click', '.detail-button', function () {
@@ -65,9 +67,10 @@ const App = () => {
   return (
     <div className="app">
 
-      <div className="header">
-        <img src={back} onClick={() => navigate(-1)} alt="" />
-        {/* <h5>GIGL Summary & Analy...</h5> */}
+      <div className="header d-flex align-items-center justify-content-between">
+        {/* <img src={back} onClick={() => navigate(-1)} alt="" /> */}
+        <ArrowBackIcon onClick={() => navigate(-1)}/>
+        <div className='read' onClick={() => navigate(`/chapter/${book_id}`)}><MenuBookIcon /></div>
       </div>
 
       <div>

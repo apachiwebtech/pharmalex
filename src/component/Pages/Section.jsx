@@ -5,7 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import { useParams } from 'react-router-dom';
 import $ from 'jquery'
-
+import HomeIcon from '@mui/icons-material/Home';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const Section = () => {
 
   const { id } = useParams()
@@ -43,7 +44,6 @@ const Section = () => {
 
       var chaptid = $(this).attr('data-id');
 
-      localStorage.setItem('booid', chaptid)
 
       navigate(`/detailpage/${chaptid}`)
 
@@ -56,9 +56,12 @@ const Section = () => {
 
   return (
     <div className="app" style={{ userSelect: 'text', WebkitUserSelect: 'text' }}>
-      <div className='d-flex align-items-center'>
-        <img src={back} onClick={() => navigate(-1)} alt="" />
-        <span className='read'><b>Read</b></span>
+      <div className='d-flex align-items-center justify-content-between' style={{ marginBottom: "20px" }}>
+        <div  >
+          {/* <img src={back} alt="" /> */}
+          <ArrowBackIcon onClick={() => navigate(-1)}/>
+        </div>
+        <div className='read'><HomeIcon onClick={() => navigate('/')}/></div>
       </div>
 
       <div dangerouslySetInnerHTML={{ __html: data }} />
