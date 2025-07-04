@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">bookapp</string>
-    <string name="title_activity_main">bookapp</string>
-    <string name="package_name">com.bookapp.app</string>
-    <string name="custom_url_scheme">com.bookapp.app</string>
+    <string name="app_name">Susmit DrugLaws</string>
+    <string name="title_activity_main">Susmit DrugLaws</string>
+    <string name="package_name">com.susmitdruglaws.app</string>
+    <string name="custom_url_scheme">com.susmitdruglaws.app</string>
 </resources>

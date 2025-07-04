@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Layout/App1.css';
 import back from '../images/arrow-left.svg'
-
+import HomeIcon from '@mui/icons-material/Home';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import book from '../images/book.jpg';
 import axios from 'axios';
@@ -25,18 +25,18 @@ const App = () => {
     const queryString = new URLSearchParams(formData).toString();
 
     fetch(`https://susmitpublishers.com/weblogin/appsec.php?${queryString}`)
-        .then(response => {
-            return response.text();
+      .then(response => {
+        return response.text();
 
-        })
-        .then(data => {
-          setData(data)
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+      })
+      .then(data => {
+        setData(data)
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
 
-}
+  }
   useEffect(() => {
     getdetails()
   }, [])
@@ -46,22 +46,22 @@ const App = () => {
 
   const book_id = localStorage.getItem('booid')
 
-    useEffect(() => {
-      $('body').on('click', '.detail-button', function () {
-  
-        var detailid = $(this).attr('data-id');
-  
-        localStorage.setItem('detailid', detailid)
-  
-        // navigate(`/detailpage/${detailid}`)
+  useEffect(() => {
+    $('body').on('click', '.detail-button', function () {
 
-        window.location.pathname = `/detailpage/${detailid}`
-  
-      });
-  
-  
-  
-    }, []);
+      var detailid = $(this).attr('data-id');
+
+      localStorage.setItem('detailid', detailid)
+
+      // navigate(`/detailpage/${detailid}`)
+
+      window.location.pathname = `/detailpage/${detailid}`
+
+    });
+
+
+
+  }, []);
 
 
   return (
@@ -69,8 +69,8 @@ const App = () => {
 
       <div className="header d-flex align-items-center justify-content-between">
         {/* <img src={back} onClick={() => navigate(-1)} alt="" /> */}
-        <ArrowBackIcon onClick={() => navigate(-1)}/>
-        <div className='read' onClick={() => navigate(`/chapter/${book_id}`)}><MenuBookIcon /></div>
+        <MenuBookIcon onClick={() => navigate(`/chapter/${book_id}`)} />
+        <div className='read' onClick={() => navigate(`/`)}><HomeIcon /></div>
       </div>
 
       <div>
@@ -85,8 +85,8 @@ const App = () => {
 
 
         <div className="about-book">
-          <h2 style={{fontWeight :"900"}}>{data.title}</h2>
-           <div dangerouslySetInnerHTML={{ __html: data.desc }}></div>
+          <h2 style={{ fontWeight: "900" }}>{data.title}</h2>
+          <div dangerouslySetInnerHTML={{ __html: data.desc }}></div>
           <div dangerouslySetInnerHTML={{ __html: data }} />
         </div>
 

@@ -1,4 +1,4 @@
-package com.bookapp.app;
+package com.susmitdruglaws.app;
 
 import com.getcapacitor.BridgeActivity;
 

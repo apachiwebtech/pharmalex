@@ -59,9 +59,9 @@ const Section = () => {
       <div className='d-flex align-items-center justify-content-between' style={{ marginBottom: "20px" }}>
         <div  >
           {/* <img src={back} alt="" /> */}
-          <ArrowBackIcon onClick={() => navigate(-1)}/>
+          <ArrowBackIcon onClick={() => navigate('/')} />
         </div>
-        <div className='read'><HomeIcon onClick={() => navigate('/')}/></div>
+        <div className='read'><HomeIcon onClick={() => navigate('/')} /></div>
       </div>
 
       <div dangerouslySetInnerHTML={{ __html: data }} />

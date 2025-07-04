@@ -12,85 +12,91 @@ import $ from 'jquery'
 
 export default function Home() {
 
-    const [data, setData] = useState([])
-    const [book, setBook] = useState([])
+  const [data, setData] = useState([])
+  const [book, setBook] = useState([])
 
-    // async function getbookthumb() {
-    //     axios.get(`${BASE_URL}/getthumbdata`)
-    //         .then((res) => {
-    //             console.log(res.data)
-    //             setData(res.data)
-    //         })
-    // }
+  // async function getbookthumb() {
+  //     axios.get(`${BASE_URL}/getthumbdata`)
+  //         .then((res) => {
+  //             console.log(res.data)
+  //             setData(res.data)
+  //         })
+  // }
 
-    async function getdeliverylisting(e) {
-        const parcleList = localStorage.getItem('LoadingID')
-        const formData = new FormData();
-
-
-        formData.append('parcleDeliveredList', parcleList);
+  async function getdeliverylisting(e) {
+    const parcleList = localStorage.getItem('LoadingID')
+    const formData = new FormData();
 
 
-        const queryString = new URLSearchParams(formData).toString();
-
-        fetch(`https://susmitpublishers.com/weblogin/appbook.php`)
-            .then(response => {
-                return response.text();
-
-            })
-            .then(data => {
-                 setBook(data)
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-
-    }
+    const user_id = localStorage.getItem('user_id')
+    formData.append('user_id', user_id);
 
 
-    useEffect(() => {
-        // getbookthumb()
-        getdeliverylisting()
-    }, [])
+    const queryString = new URLSearchParams(formData).toString();
+    fetch(`https://susmitpublishers.com/weblogin/appbook.php`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: queryString
+    })
+      .then(response => {
+        return response.text();
+
+      })
+      .then(data => {
+        setBook(data)
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+  }
 
 
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        $('body').on('click', '.bookclick', function () {
-
-            var bookid = $(this).attr('data-id');
-
-            localStorage.setItem('booid' , bookid)
+  useEffect(() => {
+    // getbookthumb()
+    getdeliverylisting()
+  }, [])
 
 
-            navigate(`/chapter/${bookid}`)
-        
-        });
-        
+  const navigate = useNavigate()
 
-     
-    }, []);
+  useEffect(() => {
+    $('body').on('click', '.bookclick', function () {
 
+      var bookid = $(this).attr('data-id');
 
-
-    const name = localStorage.getItem('firstName')
-    return (
-
-        <div>
-
-            <Header />
-            <div className="title_box my-2">
-                <h1>Hey, {name} </h1>
-                {/* <button>See All</button> */}
-            </div>
+      localStorage.setItem('booid', bookid)
 
 
-            <div className='book_box row' id="booklistbk">
-                <div dangerouslySetInnerHTML={{ __html: book }} />
-            </div>
+      navigate(`/chapter/${bookid}`)
 
-            <Footer />
-        </div>
-    )
+    });
+
+
+
+  }, []);
+
+
+
+  const name = localStorage.getItem('firstName')
+  return (
+
+    <div>
+
+      <Header />
+      <div className="title_box my-2">
+        <h1>Hey, {name} </h1>
+        {/* <button>See All</button> */}
+      </div>
+
+
+      <div className='book_box row' id="booklistbk">
+        <div dangerouslySetInnerHTML={{ __html: book }} />
+      </div>
+
+      <Footer />
+    </div>
+  )
 }
